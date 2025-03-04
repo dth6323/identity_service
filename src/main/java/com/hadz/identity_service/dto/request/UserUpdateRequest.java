@@ -1,4 +1,4 @@
-package dto.request;
+package com.hadz.identity_service.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

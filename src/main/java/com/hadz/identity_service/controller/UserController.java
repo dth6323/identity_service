@@ -1,14 +1,15 @@
 package com.hadz.identity_service.controller;
 
+import com.hadz.identity_service.dto.request.ApiResponse;
 import com.hadz.identity_service.entity.User;
 import com.hadz.identity_service.service.UserService;
-import dto.request.UserCreationRequest;
-import dto.request.UserUpdateRequest;
+import com.hadz.identity_service.dto.request.UserCreationRequest;
+import com.hadz.identity_service.dto.request.UserUpdateRequest;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/users")
@@ -16,8 +17,10 @@ public class UserController {
     @Autowired
     private UserService userService;
     @PostMapping
-    User CreateUser(@RequestBody UserCreationRequest request){
-        return userService.createUser(request);
+    ApiResponse<User> CreateUser(@RequestBody @Valid UserCreationRequest request){
+        ApiResponse<User> apiResponse = new ApiResponse<>();
+        apiResponse.setResult(userService.createUser(request));
+        return apiResponse;
     }
     @GetMapping
     List<User> getAllUsers(){
@@ -34,5 +37,9 @@ public class UserController {
     @DeleteMapping("/{userId}")
     void deleteUser(@PathVariable String userId){
         userService.deleteUser(userId);
+    }
+    @GetMapping("/test")
+    public String test() {
+        throw new RuntimeException("Test exception");
     }
 }

@@ -1,9 +1,11 @@
 package com.hadz.identity_service.service;
 
 import com.hadz.identity_service.entity.User;
+import com.hadz.identity_service.exception.AppException;
+import com.hadz.identity_service.exception.ErrorCode;
 import com.hadz.identity_service.repository.UserRepository;
-import dto.request.UserCreationRequest;
-import dto.request.UserUpdateRequest;
+import com.hadz.identity_service.dto.request.UserCreationRequest;
+import com.hadz.identity_service.dto.request.UserUpdateRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,10 @@ public class UserService {
 
     public User createUser(UserCreationRequest request){
         User user = new User();
+
+        if(userRepository.existsByUsername(request.getUsername())){
+            throw new RuntimeException("ErrorCode.USER_EXISTED");
+        }
         user.setUsername(request.getUsername());
         user.setPassword(request.getPassword());
         user.setFirstName(request.getFirstName());
