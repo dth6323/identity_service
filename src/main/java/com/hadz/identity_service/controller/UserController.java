@@ -1,6 +1,7 @@
 package com.hadz.identity_service.controller;
 
 import com.hadz.identity_service.dto.request.ApiResponse;
+import com.hadz.identity_service.dto.response.UserResponse;
 import com.hadz.identity_service.entity.User;
 import com.hadz.identity_service.service.UserService;
 import com.hadz.identity_service.dto.request.UserCreationRequest;
@@ -27,11 +28,11 @@ public class UserController {
         return userService.getUser();
     }
     @GetMapping("/{userId}")
-    User getUserById(@PathVariable String userId){
+    UserResponse getUserById(@PathVariable String userId){
         return userService.getUserById(userId);
     }
     @PutMapping("/{userId}")
-    User updateUser(@PathVariable String userId, @RequestBody UserUpdateRequest request){
+    UserResponse updateUser(@PathVariable String userId, @RequestBody UserUpdateRequest request){
         return userService.updateUser(userId, request);
     }
     @DeleteMapping("/{userId}")
