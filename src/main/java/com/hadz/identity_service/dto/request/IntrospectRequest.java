@@ -1,4 +1,4 @@
-package com.hadz.identity_service.dto.response;
+package com.hadz.identity_service.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class AuthenticationResponse {
+public class IntrospectRequest {
     private String token;
-    private Boolean authenticated;
 }
